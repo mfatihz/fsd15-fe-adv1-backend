@@ -35,7 +35,6 @@ class MyListController {
 
     allLists[userId] = [...newList];
     this._saveAllLists(allLists);
-    console.log(allLists)
     return [...newList];
   }
 
