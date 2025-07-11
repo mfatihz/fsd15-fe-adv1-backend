@@ -1,3 +1,3 @@
-const router = require('./routes');
+const app = require('../app');
 
-module.exports = router;
+module.exports = app;

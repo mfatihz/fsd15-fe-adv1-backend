@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const { getGalleriesByPage } = require('../controllers/gallery.controller');
-const { getHeroByPage } = require('../controllers/hero.controller');
-const { getEpisodesGallery } = require('../controllers/episode.controller');
-const myListController = require('../controllers/mylist.controller');
+const { getGalleriesByPage } = require('./controllers/gallery.controller');
+const { getHeroByPage } = require('./controllers/hero.controller');
+const { getEpisodesGallery } = require('./controllers/episode.controller');
+const myListController = require('./controllers/mylist.controller');
 
 // Main pages routes
 router.get('/hero/:page', getHeroByPage);
