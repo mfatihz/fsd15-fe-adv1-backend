@@ -21,7 +21,7 @@ const getMoviesByIds = (movieIds) => {
 const getGalleriesByPage = (page) => {
     const galleries = database.galleries
         .filter(gallery => gallery.pages.includes(page))
-    // console.log('galleriesx: '+JSON.stringify(galleries[0]))
+        
     const formattedGalleries = galleries.map(
         gallery => ({
             ...gallery,

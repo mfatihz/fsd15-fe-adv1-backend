@@ -35,7 +35,7 @@ class MyListController {
             movies: getMoviesByIds(this.getMyListIds(userId))
         })
     )
-    console.log(formattedGalleries)
+    
     res.json(formattedGalleries);
   }
 
