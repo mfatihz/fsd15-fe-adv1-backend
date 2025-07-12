@@ -16,8 +16,10 @@ router.get('/series/:id/episodes', getEpisodesGallery);
 // MyList page routes
 router.get('/mylist/:userId', (req, res) => {
   const { userId } = req.params;
-  res.json({ ids: myListController.getMyList(userId) });
+  res.json({ ids: myListController.getMyListIds(userId) });
 });
+
+router.get('/mylist/:userId/galleries', myListController.getMyListGalleries);
 
 router.put('/mylist/:userId/toggle', (req, res) => {
   const { userId } = req.params;

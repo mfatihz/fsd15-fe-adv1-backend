@@ -41,6 +41,13 @@ const galleriesDB = [
         pages: ['recommendation'],
         movie_ids: [25, 2, 23, 18,],
     },
+    {
+        id: 6,
+        title: { myList: "Daftar Saya" },
+        gallery_type: "",
+        pages: ['myList'],
+        movie_ids: [],
+    },
 ]
 
 module.exports = galleriesDB;
