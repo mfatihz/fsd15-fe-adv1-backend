@@ -17,7 +17,7 @@ router.get('/series/:id/episodes', getEpisodesGallery);
 router.get('/mylist/:userId', myListController.getMyListIds);
 router.get('/mylist/:userId/galleries', myListController.getMyListGalleries);
 router.put('/mylist/:userId/toggle', myListController.toggleMovie);
-router.get('/mylist/:userId/:movieId', myListController.hasMovie);
+router.get('/mylist/:userId/has/:movieId', myListController.hasMovie);
 
 // belum diimplementasikan. UI pendukung 
 // router.delete('/mylist/:userId', (req, res) => {
