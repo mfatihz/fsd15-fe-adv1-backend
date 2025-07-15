@@ -50,9 +50,9 @@ class MyListController {
     try {
       const { userId } = req.params;
       const { movieId } = req.body;
-
-      if (!movieId) {
-        return res.status(400).json({ success: false, message: 'movieId is required' });
+      
+      if (!movieId && movieId!==0) {
+        return res.status(400).json({ error: 'movieId is required' });
       }
 
       const allLists = this._getMyListIds();
