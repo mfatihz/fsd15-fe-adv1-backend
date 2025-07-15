@@ -22,7 +22,7 @@ class MyListController {
     try {
       const { userId } = req.params;
       const allLists = this._getMyListIds();
-      res.json({ success: true, ids: allLists[userId] || [] });
+      res.status(200).json({ success: true, ids: allLists[userId] || [] });
     } catch (error) {
       res.status(500).json({ success: false, message: error.message });
     }
@@ -40,7 +40,7 @@ class MyListController {
       pageGalleries[0].movie_ids=userList;
       pageGalleries[0].movies=movies;
 
-      res.json(pageGalleries);
+      res.status(200).json(pageGalleries);
     } catch (error) {
       res.status(500).json({ success: false, message: error.message });
     }
@@ -67,7 +67,7 @@ class MyListController {
 
       allLists[userId] = [...newList];
       this._saveMyListIds(allLists);
-      res.json({ success: true, ids: [...newList] });
+      res.status(200).json({ success: true, ids: [...newList] });
     } catch (error) {
       res.status(500).json({ success: false, message: error.message });
     }
@@ -79,7 +79,7 @@ class MyListController {
       const allLists = this._getMyListIds();
       const userList = allLists[userId] || [];
       
-      res.json({ success: true, has: userList.includes(movieId) });
+      res.status(200).json({ success: true, has: userList.includes(movieId) });
     } catch (error) {
       res.status(500).json({ success: false, message: error.message });
     }
@@ -91,9 +91,9 @@ class MyListController {
       const allLists = this._getMyListIds();
       delete allLists[userId];
       this._saveMyListIds(allLists);
-      res.json({ success: true, ids: [] });
+      res.status(200).json({ ids: [] });
     } catch (error) {
-      res.status(500).json({ success: false, message: error.message });
+      res.status(500).json({ message: error.message });
     }
   }
 }

@@ -19,11 +19,7 @@ router.get('/mylist/:userId/galleries', myListController.getMyListGalleries);
 router.put('/mylist/:userId/toggle', myListController.toggleMovie);
 router.get('/mylist/:userId/watchlist/movies/:movieId', myListController.hasMovie);
 
-// belum diimplementasikan. UI pendukung 
-// router.delete('/mylist/:userId', (req, res) => {
-//   const { userId } = req.params;
-//   res.json({ ids: myListController.clearMyList(userId) });
-// });
+// belum diimplementasikan. UI pendukung
 router.delete('/mylist/:userId', myListController.clearMyList);
 
 module.exports = router;
