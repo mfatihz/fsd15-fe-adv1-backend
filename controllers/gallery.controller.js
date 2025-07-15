@@ -16,6 +16,6 @@ exports.getGalleriesByPage = (req, res) => {
             )
         })
     )
-
+    
     res.json(galleriesWithMovieDetail);
 }

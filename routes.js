@@ -14,28 +14,16 @@ router.get('/galleries/:page', getGalleriesByPage);
 router.get('/series/:id/episodes', getEpisodesGallery);
 
 // MyList page routes
-router.get('/mylist/:userId', (req, res) => {
-  const { userId } = req.params;
-  res.json({ ids: myListController.getMyListIds(userId) });
-});
-
+router.get('/mylist/:userId', myListController.getMyListIds);
 router.get('/mylist/:userId/galleries', myListController.getMyListGalleries);
+router.put('/mylist/:userId/toggle', myListController.toggleMovie);
+router.get('/mylist/:userId/:movieId', myListController.hasMovie);
 
-router.put('/mylist/:userId/toggle', (req, res) => {
-  const { userId } = req.params;
-  const { movieId } = req.body;
-  res.json({ ids: myListController.toggleMovie(userId, movieId) });
-});
-
-router.get('/mylist/:userId/:movieId', (req, res) => {
-  const { userId, movieId } = req.params;
-  res.json({ has: myListController.hasMovie(userId, movieId) });
-});
-
-// belum diimplementasikan. butuh UI pendukung
-router.delete('/mylist/:userId', (req, res) => {
-  const { userId } = req.params;
-  res.json({ ids: myListController.clearMyList(userId) });
-});
+// belum diimplementasikan. UI pendukung 
+// router.delete('/mylist/:userId', (req, res) => {
+//   const { userId } = req.params;
+//   res.json({ ids: myListController.clearMyList(userId) });
+// });
+router.delete('/mylist/:userId', myListController.clearMyList);
 
 module.exports = router;

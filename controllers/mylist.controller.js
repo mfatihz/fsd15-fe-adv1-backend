@@ -18,53 +18,83 @@ class MyListController {
   }
 
   // CRUD Operations
-  getMyListIds = (userId) => {
-    const allLists = this._getMyListIds();
-    return allLists[userId] || [];
-  }
-
-  getMyListGalleries = (req, res) => {
-    const { userId } = req.params;
-    const pageGalleries = getGalleriesByPage('myList');
-    const allLists = this.getMyListIds(userId);
-    
-    const formattedGalleries = pageGalleries.map(
-        gallery => ({
-            ...gallery,
-            movie_ids: allLists,
-            movies: getMoviesByIds(this.getMyListIds(userId))
-        })
-    )
-    
-    res.json(formattedGalleries);
-  }
-
-  toggleMovie = (userId, movieId) => {
-    const allLists = this._getMyListIds();
-    const userList = allLists[userId] || [];
-
-    const newList = new Set(userList);
-    if (newList.has(movieId)) {
-      newList.delete(movieId);
-    } else {
-      newList.add(movieId);
+  getMyListIds = async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const allLists = this._getMyListIds();
+      res.json({ success: true, ids: allLists[userId] || [] });
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
     }
-
-    allLists[userId] = [...newList];
-    this._saveMyListIds(allLists);
-    return [...newList];
   }
 
-  hasMovie = (userId, movieId) => {
-    const userList = this.getMyListIds(userId);
-    return new Set(userList).has(movieId);
+  getMyListGalleries = async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const allLists = this._getMyListIds();
+      const userList = allLists[userId] || [];
+      const movies = getMoviesByIds(userList);
+
+      const pageGalleries = getGalleriesByPage('myList');
+      
+      pageGalleries[0].movie_ids=userList;
+      pageGalleries[0].movies=movies;
+
+      res.json(pageGalleries);
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
+    }
   }
 
-  clearMyList = (userId) => {
-    const allLists = this._getMyListIds();
-    delete allLists[userId];
-    this._saveMyListIds(allLists);
-    return [];
+  toggleMovie = (req, res) => {
+    try {
+      const { userId } = req.params;
+      const { movieId } = req.body;
+
+      if (!movieId) {
+        return res.status(400).json({ success: false, message: 'movieId is required' });
+      }
+
+      const allLists = this._getMyListIds();
+      const userList = allLists[userId] || [];
+
+      const newList = new Set(userList);
+      if (newList.has(movieId)) {
+        newList.delete(movieId);
+      } else {
+        newList.add(movieId);
+      }
+
+      allLists[userId] = [...newList];
+      this._saveMyListIds(allLists);
+      res.json({ success: true, ids: [...newList] });
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
+    }
+  }
+
+  hasMovie = (req, res) => {
+    try {
+      const { userId, movieId } = req.params;
+      const allLists = this._getMyListIds();
+      const userList = allLists[userId] || [];
+      
+      res.json({ success: true, has: userList.includes(movieId) });
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
+    }
+  }
+
+  clearMyList = (req, res) => {
+    try {
+      const { userId } = req.params;
+      const allLists = this._getMyListIds();
+      delete allLists[userId];
+      this._saveMyListIds(allLists);
+      res.json({ success: true, ids: [] });
+    } catch (error) {
+      res.status(500).json({ success: false, message: error.message });
+    }
   }
 }
 

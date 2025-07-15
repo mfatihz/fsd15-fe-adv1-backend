@@ -5,16 +5,10 @@ const apiRoute = require('./routes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const allowedOrigins = ['http://localhost:3000', 'http://localhost:5173'];
-
 app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)){
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'))
-        }
-    }
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['http://localhost:3000', 'http://localhost:5173'] 
+    : '*'
 }));
 
 app.use(express.json());
