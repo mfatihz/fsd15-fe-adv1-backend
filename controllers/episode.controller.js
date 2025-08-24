@@ -1,18 +1,6 @@
 const { getEpisodesByParentId } = require('../config/db');
 
 exports.getEpisodesGallery = (req, res) => {
-    // const { id } = req.params;
-    // const episodes = getEpisodesByParentId(id);
-
-    // // diformat menjadi data gallery
-    // const gallery = {
-    //     title: "Episode",
-    //     movies: episodes,
-    // }
-
-    // res.status(200).json(gallery);
-
-
     try {
         const { id } = req.params;    
         if (!id) {
