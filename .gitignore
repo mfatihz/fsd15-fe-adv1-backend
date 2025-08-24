@@ -1,3 +1,3 @@
 node_modules/
-# .env # disabled temporary for development phase
+# .env # TODO: aktifkan jika development phase selesai
 localStorage/
